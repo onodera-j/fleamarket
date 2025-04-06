@@ -1,0 +1,101 @@
+.header{
+    background-color: #000;
+}
+
+.header-inner{
+    display: flex;
+    padding: 0px 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo{
+    margin-right: 10px;
+}
+
+.logo{
+    width: 100%;
+}
+
+.header-form{
+    text-align: center;
+    width:40%;
+}
+
+.search-form{
+    margin-top: 2px;
+    padding: 8px 10px;
+    width: 100%;
+}
+
+.member-menu{
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    text-decoration: none;
+    padding-left: 0;
+    text-align: right;
+}
+
+.member-content {
+    list-style:none;
+    margin: 0 10px;
+    padding:0 10px;
+}
+
+.button-logout {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.link{
+    text-decoration: none;
+    color: #fff;
+}
+
+.link-sell {
+    text-decoration: none;
+    color: #000;
+}
+
+.link-login {
+    text-decoration: none;
+    color: #fff;
+}
+
+.member-listing{
+    background-color: #fff;
+    color: #000;
+    border-radius: 3px;
+    padding: 0px 15px;
+    margin: 0 10px;
+}
+
+@media screen and (max-width: 1130px) {
+
+    .header-inner{
+        padding: 10px 0;
+    }
+
+    .header-logo{
+        width: 20%;
+        padding-left: 5px;
+    }
+    .member-nav{
+        font-size: 12px;
+    }
+
+    .member-content{
+        margin: 0 5px;
+    }
+
+    .button-logout{
+        font-size: 12px;
+    }
+
+
+
+}

@@ -1,0 +1,128 @@
+.content {
+    margin: 0 auto;
+    width: 90%;
+    padding: 80px 30px;
+}
+
+.flex-content{
+    display: flex;
+    gap: 50px;
+}
+
+.flex-large{
+    flex: 2;
+}
+
+.flex-small{
+    flex: 1;
+}
+
+.item-image{
+    padding: 0 40px 30px 0;
+}
+
+.item-name{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.content-group{
+    border-bottom: 1px solid #000;
+    display: flex;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.payment-method,
+.shipping-address{
+    padding: 10px 30px;
+}
+
+.group-title{
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.edit-address{
+    padding: 10px 0;
+}
+
+.form-select{
+    width: 200px;
+    padding: 5px;
+    margin: 20px 50px;
+}
+
+.anchor-edit {
+    text-decoration: none;
+    color: #0073cc;
+}
+
+.address{
+    margin: 20px 80px;
+    font-weight: bold;
+}
+
+.display-block{
+    display: block;
+}
+
+.purchase-confirm{
+    width: 90%;
+}
+
+.confirm-table{
+    text-align: center;
+    width: 100%;
+    border: 1px solid #000;
+}
+
+.table-content{
+    border-bottom: 1px solid #000;
+    padding: 20px;
+}
+
+.table-title {
+    font-size: 12px;
+}
+
+.purchase-button{
+    margin: 50px 0;
+}
+
+.button{
+    width: 100%;
+    background-color: #f55;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1050px) {
+
+.flex-content{
+    display: block;
+
+}
+
+.flex-small{
+    margin: 50px 0;
+}
+
+.purchase-confirm{
+    margin: 0 auto;
+    width: 60%;
+    text-align: center;
+}
+
+}
+
+
+
