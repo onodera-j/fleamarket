@@ -23,6 +23,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                $user = Auth::user();
+                if ($user && $user->profile_key === 1) {
+                    return redirect('/mypage/profile');
+                }
                 return redirect(RouteServiceProvider::HOME);
             }
         }

@@ -21,7 +21,7 @@ class ItemsTableSeeder extends Seeder
         $client = new Client();
         $response= $client->get($url);
         $image = $response->getBody()->getContents();
-        $path = Storage::put('public/items/' . $filename, $image);
+        $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
             "user_id" => 1,
             "condition" => 1,
@@ -30,7 +30,7 @@ class ItemsTableSeeder extends Seeder
             "item_detail" => "スタイリッシュなデザインのメンズ腕時計",
             "price" => 15000,
             "soldout" => 0,
-            "item_image" =>"items/" . $filename,
+            "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);
 
@@ -39,7 +39,7 @@ class ItemsTableSeeder extends Seeder
         $client = new Client();
         $response= $client->get($url);
         $image = $response->getBody()->getContents();
-        $path = Storage::put('public/items/' . $filename, $image);
+        $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
             "user_id" => 2,
             "condition" => 2,
@@ -48,7 +48,7 @@ class ItemsTableSeeder extends Seeder
             "item_detail" => "高速で信頼性の高いハードディスク",
             "price" => 5000,
             "soldout" => 0,
-            "item_image" =>"items/" . $filename,
+            "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);
 
@@ -57,7 +57,7 @@ class ItemsTableSeeder extends Seeder
         $client = new Client();
         $response= $client->get($url);
         $image = $response->getBody()->getContents();
-        $path = Storage::put('public/items/' . $filename, $image);
+        $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
             "user_id" => 3,
             "condition" => 3,
@@ -66,7 +66,7 @@ class ItemsTableSeeder extends Seeder
             "item_detail" => "新鮮な玉ねぎ3束のセット",
             "price" => 300,
             "soldout" => 0,
-            "item_image" =>"items/" . $filename,
+            "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);
 
@@ -75,7 +75,7 @@ class ItemsTableSeeder extends Seeder
         $client = new Client();
         $response= $client->get($url);
         $image = $response->getBody()->getContents();
-        $path = Storage::put('public/items/' . $filename, $image);
+        $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
             "user_id" => 4,
             "condition" => 4,
@@ -84,7 +84,7 @@ class ItemsTableSeeder extends Seeder
             "item_detail" => "クラシックなデザインの革靴",
             "price" => 4000,
             "soldout" => 0,
-            "item_image" =>"items/" . $filename,
+            "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);
 
@@ -93,7 +93,7 @@ class ItemsTableSeeder extends Seeder
         $client = new Client();
         $response= $client->get($url);
         $image = $response->getBody()->getContents();
-        $path = Storage::put('public/items/' . $filename, $image);
+        $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
             "user_id" => 5,
             "condition" => 1,
@@ -102,7 +102,7 @@ class ItemsTableSeeder extends Seeder
             "item_detail" => "高性能なノートパソコン",
             "price" => 45000,
             "soldout" => 0,
-            "item_image" =>"items/" . $filename,
+            "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);
 
@@ -111,7 +111,7 @@ class ItemsTableSeeder extends Seeder
         $client = new Client();
         $response= $client->get($url);
         $image = $response->getBody()->getContents();
-        $path = Storage::put('public/items/' . $filename, $image);
+        $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
             "user_id" => 1,
             "condition" => 2,
@@ -120,7 +120,7 @@ class ItemsTableSeeder extends Seeder
             "item_detail" => "高音質のレコーディング用マイク",
             "price" => 8000,
             "soldout" => 0,
-            "item_image" =>"items/" . $filename,
+            "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);
 
@@ -129,7 +129,7 @@ class ItemsTableSeeder extends Seeder
         $client = new Client();
         $response= $client->get($url);
         $image = $response->getBody()->getContents();
-        $path = Storage::put('public/items/' . $filename, $image);
+        $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
             "user_id" => 2,
             "condition" => 3,
@@ -138,7 +138,7 @@ class ItemsTableSeeder extends Seeder
             "item_detail" => "おしゃれなショルダーバッグ",
             "price" => 3500,
             "soldout" => 0,
-            "item_image" =>"items/" . $filename,
+            "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);
 
@@ -147,7 +147,7 @@ class ItemsTableSeeder extends Seeder
         $client = new Client();
         $response= $client->get($url);
         $image = $response->getBody()->getContents();
-        $path = Storage::put('public/items/' . $filename, $image);
+        $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
             "user_id" => 3,
             "condition" => 4,
@@ -156,7 +156,7 @@ class ItemsTableSeeder extends Seeder
             "item_detail" => "使いやすいタンブラー",
             "price" => 500,
             "soldout" => 0,
-            "item_image" =>"items/" . $filename,
+            "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);
 
@@ -165,7 +165,7 @@ class ItemsTableSeeder extends Seeder
         $client = new Client();
         $response= $client->get($url);
         $image = $response->getBody()->getContents();
-        $path = Storage::put('public/items/' . $filename, $image);
+        $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
             "user_id" => 4,
             "condition" => 1,
@@ -174,7 +174,7 @@ class ItemsTableSeeder extends Seeder
             "item_detail" => "手動のコーヒーミル",
             "price" => 4000,
             "soldout" => 0,
-            "item_image" =>"items/" . $filename,
+            "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);
 
@@ -183,7 +183,7 @@ class ItemsTableSeeder extends Seeder
         $client = new Client();
         $response= $client->get($url);
         $image = $response->getBody()->getContents();
-        $path = Storage::put('public/items/' . $filename, $image);
+        $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
             "user_id" => 5,
             "condition" => 2,
@@ -192,7 +192,7 @@ class ItemsTableSeeder extends Seeder
             "item_detail" => "便利なメイクアップセット",
             "price" => 2500,
             "soldout" => 0,
-            "item_image" =>"items/" . $filename,
+            "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);
 

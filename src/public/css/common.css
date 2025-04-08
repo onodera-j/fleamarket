@@ -70,14 +70,18 @@
     background-color: #fff;
     color: #000;
     border-radius: 3px;
-    padding: 0px 15px;
-    margin: 0 10px;
+    padding: 0px 10px;
 }
 
-@media screen and (max-width: 1130px) {
+@media screen and (max-width: 1150px) {
 
-    .header-inner{
-        padding: 10px 0;
+
+    .header-form{
+        width: 30%;
+    }
+
+    .search-form{
+        padding: 4px 10px;
     }
 
     .header-logo{
@@ -95,6 +99,8 @@
     .button-logout{
         font-size: 12px;
     }
+
+
 
 
 

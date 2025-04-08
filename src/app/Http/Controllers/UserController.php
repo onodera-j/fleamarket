@@ -45,10 +45,10 @@ class UserController extends Controller
             $user = Auth::user(); // ログインユーザーを取得
             Log::info("User ID: " . $user->id);
             // ユーザー情報の更新
-            $user->name = $request->input('name');
+            $user->name = $profilerequest->input('name');
             $user->profile_key = 0;
-            if ($request->hasFile('profile_image')) {
-                $file = $request->file('profile_image');
+            if ($profilerequest->hasFile('profile_image')) {
+                $file = $profilerequest->file('profile_image');
                 $file_name = Str::random(10) . '.' . $file->getClientOriginalExtension(); // ユニークなファイル名を生成
                 $path = $file->storeAs('profiles', $file_name, 'public'); // storage/app/public/profile に保存
                 $user->profile_image = 'profiles/' . $file_name; // データベースに保存するパス
@@ -57,12 +57,12 @@ class UserController extends Controller
         $user->save();
 
         $address = Address::where('user_id', $user->id)->first();
-        $postcode = $request->input("post_code");
+        $postcode = $addressrequest->input("post_code");
         if(preg_match('/^[0-9]{7}$/', $postcode))
         {
             $postcode = substr($postcode ,0,3) . "-" . substr($postcode ,3);
         }
-        $addressData = $request->only(["address","building"]);
+        $addressData = $addressrequest->only(["address","building"]);
         $addressData["post_code"] = $postcode;
         $addressData["user_id"] = $user->id;
 
@@ -74,7 +74,7 @@ class UserController extends Controller
 
         DB::commit();
 
-        return redirect("/profile")->with("success", "プロフィールを更新しました");
+        return redirect("/mypage/profile")->with("success", "プロフィールを更新しました");
         }catch (\Exception $e) {
             DB::rollback();
             Log::error("Error: " . $e->getMessage());

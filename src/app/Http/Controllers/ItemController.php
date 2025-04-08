@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\ExhibitionRequest;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\CommentRequest;
@@ -140,11 +141,11 @@ class ItemController extends Controller
 
                 DB::commit();
 
-            return redirect("/mypage")->with("success", "商品を出品しました");
+            return redirect("/mypage/mypage")->with("success", "商品を出品しました");
         }catch (\Exception $e) {
             DB::rollback();
             Log::error("Error: " . $e->getMessage());
-            return back()->withErrors(["error", "プロフィールの更新に失敗しました"]);
+            return back()->withErrors(["error", "商品の出品に失敗しました"]);
         }
 
     }
@@ -229,7 +230,7 @@ class ItemController extends Controller
 
         DB::commit();
 
-        return redirect("/mypage");
+        return redirect("/mypage/mypage?tab=buy");
 
         }catch (\Exception $e) {
             DB::rollback();

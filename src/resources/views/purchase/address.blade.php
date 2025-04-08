@@ -18,7 +18,7 @@
             @method("PATCH")
             @csrf
 
-            <input type="hidden" name="item_id" value="{{$item["id"]}}"
+            <input type="hidden" name="item_id" value="{{$item["id"]}}">
             <div class="form-group">
                 <label class="form-label" for="post_code">郵便番号</label>
                 <input class="form-text" id="post_code" name="post_code" type="text" value="@if(isset($address["post_code"])){{$address["post_code"]}}@endif">

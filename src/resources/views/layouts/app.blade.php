@@ -43,8 +43,8 @@
                     </li>
                     @endif
                     <li class="member-content"><a class="link" href="/mypage/mypage">マイページ</a></li>
-                    <li class="member-content member-listing">
-                        <a class="link-sell" href="/sell">出品</a>
+                    <li class="member-content">
+                        <a class="link-sell member-listing" href="/sell">出品</a>
                     </li>
                 </ul>
             </div>
