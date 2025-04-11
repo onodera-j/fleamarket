@@ -21,6 +21,11 @@ Route::get("/search", [ItemController::class, "search"]);
 
 
 Route::middleware('auth')->group(function () {
+
+});
+
+Auth::routes(['verify' => true]);
+Route::middleware('verified')->group(function(){
     Route::post("/address", [UserController::class, "store"]);
     Route::get('/mypage/profile', [UserController::class, "profile"]);
     Route::get("/sell", [ItemController::class, "sell"]);
@@ -34,13 +39,5 @@ Route::middleware('auth')->group(function () {
     Route::delete("/favoritedelete", [ItemController::class, "destroy"]);
     Route::post("/favorite", [ItemController::class, "favorite"]);
 });
-
-// Auth::routes(['verify' => true]);
-// Route::middleware('verified')->group(function(){
-//     Route::get('mypage/profile',function(){
-//         return view('profile');
-//     });
-// });
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
