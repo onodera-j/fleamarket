@@ -46,7 +46,6 @@ class UserController extends Controller
             Log::info("User ID: " . $user->id);
             // ユーザー情報の更新
             $user->name = $profilerequest->input('name');
-            $user->profile_key = 0;
             if ($profilerequest->hasFile('profile_image')) {
                 $file = $profilerequest->file('profile_image');
                 $file_name = Str::random(10) . '.' . $file->getClientOriginalExtension(); // ユニークなファイル名を生成

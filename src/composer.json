@@ -10,7 +10,7 @@
         "guzzlehttp/guzzle": "^7.4",
         "intervention/image": "^2.7",
         "laravel/fortify": "^1.19",
-        "laravel/framework": "^8.75",
+        "laravel/framework": "^8.0",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4"

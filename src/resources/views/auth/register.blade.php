@@ -45,10 +45,6 @@
 
             </div>
 
-            <div class="form-group">
-                <input type="hidden" name="profile_key" value=1>
-            </div>
-
             <div class="form-btn">
                 <button class="btn-submit">登録する</button>
             </div>

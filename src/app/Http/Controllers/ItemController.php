@@ -38,6 +38,9 @@ class ItemController extends Controller
                 if(empty($keyword)){
                     $user = Auth::user();
                     $mylistItems = Favorite::where("user_id",$user->id)
+                                            ->whereHas("item", function($query) use ($user){
+                                                $query->where("user_id","!=", $user->id);
+                                            })
                                             ->with("item")->get();
                 }else{
                     $user = Auth::user();
@@ -50,7 +53,11 @@ class ItemController extends Controller
             }
         }elseif(Auth::check()){
             $user = Auth::user();
-            $Items = Item::where("user_id","!=", $user->id)->get();
+            if($user->address){
+                $Items = Item::where("user_id","!=", $user->id)->get();
+            }else{
+                return redirect('/mypage/profile');
+            }
         }else{
             $Items = Item::get();
         }

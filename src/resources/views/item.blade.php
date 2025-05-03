@@ -44,6 +44,7 @@
                         <input type="hidden" name="item_id" value="{{$item["id"]}}">
                         <button class="favorite"><img class="logo" width="32px" height="32px" src="{{ asset("storage/star1.svg") }}"></button>
                         <div class="count">{{$counts->count()}}</div>
+                    </form>
                     @endif
                 </div>
                 <div class="icon-comment">

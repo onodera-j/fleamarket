@@ -29,7 +29,7 @@ class ItemsTableSeeder extends Seeder
             "brand_name" => "",
             "item_detail" => "スタイリッシュなデザインのメンズ腕時計",
             "price" => 15000,
-            "soldout" => 0,
+            "soldout" => 1,
             "item_image" =>"seeditems/" . $filename,
         ];
         DB::table("items")->insert($param);

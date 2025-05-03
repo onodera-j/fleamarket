@@ -18,8 +18,8 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'password' => $this->faker->password(), // password
-            'profile_key' => 0,
             'profile_image' => "default.png",
+            'email_verified_at' => now(),
         ];
     }
 
