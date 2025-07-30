@@ -19,6 +19,8 @@ use App\Models\Address;
 use App\Models\Transaction;
 use App\Models\Favorite;
 use Illuminate\Support\Str;
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
 
 class ItemController extends Controller
 {
@@ -225,26 +227,90 @@ class ItemController extends Controller
     {
         DB::beginTransaction();
         try{
-        $user = Auth::user();
+            $user = Auth::user();
 
-        $transactionData = $request->only(["item_id","post_code","address","building","payment_method"]);
-        $transactionData["purchaser_id"] = $user->id;
-        Transaction::create($transactionData);
+            $transactionData = $request->only(["item_id","post_code","address","building","payment_method"]);
+            $transactionData["purchaser_id"] = $user->id;
 
-        $item = Item::where('id', $transactionData["item_id"])->first();
-        $itemData["soldout"] = 1;
-        $item->update($itemData);
+            $item = Item::findOrFail($transactionData["item_id"]);
 
-        DB::commit();
+            if((int)$transactionData['payment_method'] === 2){
+                Stripe::setApikey(config('services.stripe.secret'));
 
-        return redirect("/mypage/mypage?tab=buy");
+                $checkoutSession = Session::create([
+                    'payment_method_types' => ['card'],
+                    'line_items' => [[
+                        'price_data' => [
+                            'currency' => 'jpy',
+                            'product_data' => [
+                                'name' => $item->item_name,
+                            ],
+                            'unit_amount' => $item->price
+                        ],
+                        'quantity' => 1,
+                    ]],
+                    'mode' => 'payment',
+                    'success_url' => route('transaction.success') . '?session_id={CHECKOUT_SESSION_ID}',
+                    'cancel_url' => route('purchase.cancel', ['item' => $item->id]),
+                    'metadata' => [
+                        'user_id' => $user->id,
+                        'item_id' => $item->id,
+                    ]
+                    ]);
+
+                    DB::commit();
+
+                    return redirect($checkoutSession->url);
+
+            }
+
+            Transaction::create($transactionData);
+
+            $item->update(['soldout' => 1]);
+
+            DB::commit();
+
+            return redirect("/mypage/mypage?tab=buy");
 
         }catch (\Exception $e) {
             DB::rollback();
             Log::error("Error: " . $e->getMessage());
             return back()->withErrors(["error", "エラーが発生しました"]);
         }
+    }
 
+    public function success(Request $request)
+    {
+        $sessionId = $request->get('session_id');
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $session = \Stripe\Checkout\Session::retrieve($sessionId);
+
+        // すでに処理されていないかチェックしつつ、item_id などからデータ更新
+        $itemId = $session->metadata->item_id;
+
+        $item = Item::find($itemId);
+        $item->update(['soldout' => 1]);
+
+        $userAddressData = Address::where('user_id', Auth::id())->first();
+
+        Transaction::create([
+            'item_id' => $itemId,
+            'purchaser_id' => Auth::id(),
+            'post_code' => $userAddressData->post_code,
+            'address' => $userAddressData->address,
+            'building' => $userAddressData->building,
+            'payment_method' => 2,
+        ]);
+
+        return redirect('/mypage/mypage?tab=buy')->with('success', '支払いが完了しました！');
+    }
+    public function cancel(Request $request)
+    {
+        $itemId = $request->query('item');
+
+        return redirect("/purchase/{$itemId}")->with('message', '支払いがキャンセルされました');
     }
 
     public function favorite(Request $request)
