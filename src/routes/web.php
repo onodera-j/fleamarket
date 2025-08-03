@@ -40,6 +40,7 @@ Route::middleware('verified')->group(function(){
     Route::post("/favorite", [ItemController::class, "favorite"]);
     Route::get('/transaction/success', [ItemController::class, 'success'])->name('transaction.success');
     Route::get('/transaction/cancel', [ItemController::class, 'cancel'])->name('purchase.cancel');
+    Route::post('/webhook/stripe', [StripeWebhookController::class, 'handle']);
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

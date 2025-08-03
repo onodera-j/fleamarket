@@ -97,6 +97,8 @@ class PurchaseTest extends TestCase
         $response->assertSee($address->address);
         $response->assertSee($address->building);
 
+        
+
         $response= $this->patch('/updateaddress',$address_update);
 
         $response->assertRedirect('/purchase/2');
