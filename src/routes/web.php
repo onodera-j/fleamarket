@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::middleware('verified')->group(function(){
     Route::get('/transaction/success', [ItemController::class, 'success'])->name('transaction.success');
     Route::get('/transaction/cancel', [ItemController::class, 'cancel'])->name('purchase.cancel');
     Route::post('/webhook/stripe', [StripeWebhookController::class, 'handle']);
+    Route::get('/mypage/chat', [ChatController::class, 'index']);
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

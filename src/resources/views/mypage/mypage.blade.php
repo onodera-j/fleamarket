@@ -47,6 +47,16 @@
             @endif
         </div>
         </form>
+        <form method="get" action="/mypage/mypage">
+        <div class="tab-item">
+            <input type="hidden" name="tab" value="transaction">
+            @if($tab === "transaction")
+                <button type="submit" class="item-button"><span class="color-red">取引中の商品</span></button>
+            @else
+                <button type="submit" class="item-button">取引中の商品</button>
+            @endif
+        </div>
+        </form>
     </div>
 
     <div class="item-list">
