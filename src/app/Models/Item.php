@@ -45,5 +45,15 @@ class Item extends Model
         }
     }
 
+    public function chat()
+    {
+        return $this->hasOne(Chat::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
 
 }
