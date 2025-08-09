@@ -8,32 +8,54 @@ body {
 }
 
 .content {
-  display: flex;
+    display: flex;
 }
+
 .nav-left {
-  flex: 1;
-  position: relative;
-  text-align: center;
-  background-color: #868686;
-  max-width: 200px;
-  height: 100vh;
+    flex: 1;
+    position: relative;
+    text-align: center;
+    background-color: #868686;
+    max-width: 200px;
+    height: 100vh;
 }
+
 .left-title {
-  margin-bottom: 20px;
-  color: #fff;
-  font-size: 20px;
+    margin: 20px 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.trading-list {
+    padding: 5px 10px;
+    margin: 10px 0;
+}
+
+
+.trading-link {
+    display: block;
+    padding: 5px;
+    margin: 30px 5px;
+    background-color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #000;
+
 }
 
 .nav-content {
-  flex: 3;
-  overflow: auto;
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .content-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 20px;
-  border-bottom: 1px solid #000;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+    border-bottom: 1px solid #000;
 }
 
 .header-title {
@@ -71,8 +93,28 @@ body {
     font-size: 20px;
 }
 
+/* チャット表示 */
 .content-chat {
     padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 60px - 290px);
+    margin-bottom: 60px;
+}
+
+.chat-group {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.chat-group.my {
+    align-items: flex-end;
+
+}
+
+.chat-group.other {
+    justify-content: flex-start;
+
 }
 
 .rounded-circle {
@@ -80,10 +122,6 @@ body {
     border-radius: 50px;
     display: inline-block;
     margin-right: 15px;
-}
-
-.fontcolor-gray {
-    color: #5f5f5f;
 }
 
 .font-bold {
@@ -95,8 +133,80 @@ body {
     background-color: #e5e5e5;
     margin: 10px 0;
     max-width: 40%;
+    width: fit-content;
     border-radius: 5px;
+    display: inline-block;
+    word-wrap: break-word;
 }
+
+.content-image {
+    text-align: center;
+    padding: 5px 0px;
+}
+
+.content-edit {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 15px;
+}
+
+.edit-button {
+    border: none;
+    color: #5f5f5f;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.edit-message {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.edit {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.edit-form {
+    width: 80%;
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
+.update-button {
+    text-align: center
+}
+
+.update {
+    background-color: #ff8282;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.message-error {
+    position: fixed;
+    bottom: 50px;
+    left: 200px;
+    width: calc(100% - 200px);
+    height: 50px;
+    padding: 0 20px;
+    z-index:15;
+    display: flex;
+    gap: 20px;
+    align-items: end;
+}
+
+.error-message {
+    color: #f00;
+}
+
+
+/* メッセージ入力欄 */
 
 .content-message {
     position: fixed;
@@ -137,6 +247,11 @@ body {
     margin-right: 10px;
 }
 
+.select-button.selected {
+    background-color: #f55;
+    color: #fff;
+}
+
 .message-send {
     display: flex;
     align-items: center;
@@ -147,17 +262,6 @@ body {
     background-color: #fff;
     border: none;
     cursor: pointer;
-}
-
-.span-close {
-    color: #fff;
-    background-color: #ff8282;
-    font-size: 14px;
-    border: 2px solid #ff8282;
-    border-radius: 20px;
-    padding: 5px 20px;
-    position: relative;
-    top: 12px;
 }
 
 /* モーダルウィンドウ */
@@ -234,6 +338,8 @@ body {
 .submit-button {
     text-align: right;
 }
+
+
 
 /* 星の表示 */
 

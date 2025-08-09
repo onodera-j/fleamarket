@@ -101,6 +101,22 @@
             </div>
             @endforeach
             @break
+
+            @case("transaction")
+            @foreach($transactionItems as $transactionItem)
+            <div class="item">
+                <a class="item-link" href="/mypage/chat/{{$transactionItem->id}}">
+                <div class="item-image">
+                    <img class="img" src="{{ Storage::url($transactionItem->item->item_image) }}" alt="商品画像" width="150" height="150">
+                </div>
+
+                <div class="item-name">
+                    <label class="label-name">{{$transactionItem->item->item_name}}</label>
+                </div>
+                </a>
+            </div>
+            @endforeach
+            @break
             @endswitch
 
 @endsection

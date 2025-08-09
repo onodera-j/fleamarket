@@ -18,6 +18,7 @@ use App\Models\Comment;
 use App\Models\Address;
 use App\Models\Transaction;
 use App\Models\Favorite;
+use App\Models\Chat;
 use Illuminate\Support\Str;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -162,20 +163,25 @@ class ItemController extends Controller
     public function mypage(Request $request)
     {
         $user = Auth::user();
-        $tab = $request->query("tab", "sell");
+        $tab = $request->query("tab", "sell", "transaction");
 
         $buyItems = [];
         $sellItems = [];
+        $transactionItems = [];
 
         if($tab === "buy"){
             $buyItems = Transaction::where("purchaser_id",$user->id)
             ->with("item")->get();
+        }elseif($tab === "transaction"){
+            $transactionItems = Chat::where("seller_id", $user->id)
+                                ->orWhere("purchaser_id", $user->id)
+                                ->orderBy('updated_at', 'desc')
+                                ->with("item")->get();
         }else{
             $sellItems = Item::where("user_id", $user->id)->get();
         }
 
-
-        return view("mypage.mypage",compact("user","buyItems", "sellItems", "tab"));
+        return view("mypage.mypage",compact("user","buyItems", "transactionItems", "sellItems", "tab"));
     }
 
     public function item(Item $item)
@@ -302,6 +308,12 @@ class ItemController extends Controller
             'address' => $userAddressData->address,
             'building' => $userAddressData->building,
             'payment_method' => $paymentMethod,
+        ]);
+
+        Chat::create([
+            'item_id' => $itemId,
+            'seller_id' => $item->user_id,
+            'purchaser_id' => Auth::id(),
         ]);
 
         return redirect('/mypage/mypage?tab=buy')->with('success', '支払いが完了しました！');
