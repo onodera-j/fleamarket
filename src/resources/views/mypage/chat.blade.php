@@ -16,7 +16,6 @@
                     {{$tradingData->item->item_name}}
                 </a>
                 @endforeach
-                <div class="trading-link">もきち</div>
             </div>
         </nav>
         <div class="nav-content">
@@ -34,11 +33,13 @@
                     @endif
                     {{ $otherUser->name }}さんとの取引画面
                 </div>
-                <div class="trading-close">
-                    <button class="button-rating" onclick='location.href="#rating"'>
-                        取引を完了する
-                    </button>
-                </div>
+                @if($chat->purchaser_id === $user->id)
+                    <div class="trading-close">
+                        <button class="button-rating" onclick='location.href="#rating"'>
+                            取引を完了する
+                        </button>
+                    </div>
+                @endif
             </div>
 
             {{-- 商品表示 --}}
@@ -142,7 +143,7 @@
         @csrf
         <div class="content-message">
             <div class="message-form">
-                <input class="form-text" name="content" type="text" value="{{ old('content') }}"
+                <input class="form-text" name="content" id="chat-content" type="text" value="{{ old('content') }}"
                     placeholder="取引メッセージを入力してください">
             </div>
             <div class="button-img">
@@ -169,11 +170,11 @@
         <a href="#!" class="modal-overlay"></a>
         <div class="modal__inner">
             <div class="modal__content">
-                <div class="modal-message">
-                    取引が完了しました。
-                </div>
-                <form class="modal__detail" action="/delete" method="post">
+                <form method="post" action=/chat/rating>
                     @csrf
+                    <div class="modal-message">
+                    取引が完了しました。
+                    </div>
                     <div class="modal-rating">
                         <div>
                             <span class="rating-message">今回の取引相手はどうでしたか？
@@ -181,24 +182,28 @@
                         </div>
 
                         <div class="stars">
-
-                            <input class="star star-5" id="star-5" type="radio" name="star" />
+                            <input class="star star-5" id="star-5" type="radio" name="score" value="5" />
                             <label class="star star-5" for="star-5"></label>
-                            <input class="star star-4" id="star-4" type="radio" name="star" />
+                            <input class="star star-4" id="star-4" type="radio" name="score" value="4" />
                             <label class="star star-4" for="star-4"></label>
-                            <input class="star star-3" id="star-3" type="radio" name="star" />
+                            <input class="star star-3" id="star-3" type="radio" name="score" value="3" checked />
                             <label class="star star-3" for="star-3"></label>
-                            <input class="star star-2" id="star-2" type="radio" name="star" />
+                            <input class="star star-2" id="star-2" type="radio" name="score" value="2" />
                             <label class="star star-2" for="star-2"></label>
-                            <input class="star star-1" id="star-1" type="radio" name="star" />
+                            <input class="star star-1" id="star-1" type="radio" name="score" value="1" />
                             <label class="star star-1" for="star-1"></label>
 
+                            <input type="hidden" name="chat_id" value="{{$chat->id}}">
+                            <input type="hidden" name="rater_id" value="{{$user->id}}">
+                            <input type="hidden" name="rated_id" value="{{$otherUser->id}}">
                         </div>
                     </div>
+
                     <div class="submit-button">
                         <button class="modal-submit" type="submit">送信する</button>
                     </div>
                 </form>
+                </div>
             </div>
         </div>
     </div>
@@ -229,6 +234,33 @@
                 chatContainer.scrollTop = chatContainer.scrollHeight;
             }
         });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const chatInput = document.getElementById('chat-content');
+            const chatId = "{{ $chat->id }}";
+            const storageKey = `chatMessage_${chatId}`;
+
+
+            // 保存されていれば復元
+            if (localStorage.getItem(storageKey)) {
+                chatInput.value = localStorage.getItem(storageKey);
+            }
+
+            // 入力のたびに保存
+            chatInput.addEventListener('input', function () {
+                localStorage.setItem(storageKey, chatInput.value);
+            });
+
+            // フォーム送信時に削除（送信成功を前提）
+            const form = chatInput.closest('form');
+            form.addEventListener('submit', function () {
+                localStorage.removeItem(storageKey);
+            });
+        });
+
+        @if($chat->seller_id === $user->id && $chat->purchaser_status === 1 && $chat->seller_status === 0)
+            window.location.hash = 'rating';
+        @endif
 
     </script>
 

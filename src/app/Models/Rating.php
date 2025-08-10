@@ -10,15 +10,15 @@ class Rating extends Model
     use HasFactory;
 
     protected $fillable = [
-        'item_id',
+        'chat_id',
         'rater_id',
         'rated_id',
         'score',
     ];
 
-    public function item()
+    public function chat()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Chat::class);
     }
     public function rater()
     {

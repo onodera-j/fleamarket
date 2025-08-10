@@ -15,7 +15,7 @@ class CreateRatingsTable extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('item_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('chat_id')->constrained()->cascadeOnDelete();
             $table->foreignId('rater_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('rated_id')->constrained('users')->cascadeOnDelete();
             $table->integer('score')->check('score between 1 and 5');

@@ -14,7 +14,8 @@ class Chat extends Model
         'seller_id',
         'purchaser_id',
         'seller_status',
-        'purchaser_status'
+        'purchaser_status',
+        'mail',
     ];
 
     public function item()
@@ -32,6 +33,11 @@ class Chat extends Model
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
     }
 
 }

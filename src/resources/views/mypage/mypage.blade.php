@@ -15,9 +15,26 @@
             <img class="rounded-circle" id="profile-image-preview" src="{{ Storage::url($user->profile_image) }}" alt="プロフィール画像" width="100" height="100">
         @endif
         </div>
-        <div class="username">
-            {{$user["name"]}}
-        </div>
+        @if($userRate === 0)
+            <div class="user-name">
+                {{$user["name"]}}
+            </div>
+        @else
+            <div class="user-status">
+                <div class="user-name">
+                    {{$user["name"]}}
+                </div>
+                <div class="user-rate">
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $userRate)
+                            <span class="rate-yellow">★</span>
+                        @else
+                            <span class="rate-gray">★</span>
+                        @endif
+                    @endfor
+                </div>
+            </div>
+        @endif
         <div class="button-img">
             <a class="profile-link" href="profile">
             <span class="select-button">プロフィールを編集</span>
@@ -51,9 +68,17 @@
         <div class="tab-item">
             <input type="hidden" name="tab" value="transaction">
             @if($tab === "transaction")
-                <button type="submit" class="item-button"><span class="color-red">取引中の商品</span></button>
+                <button type="submit" class="item-button"><span class="color-red">取引中の商品</span>
+                @if($newMessage != 0)
+                    <span class=message-icon>{{$newMessage}}</span>
+                @endif
+                </button>
             @else
-                <button type="submit" class="item-button">取引中の商品</button>
+                <button type="submit" class="item-button">取引中の商品
+                @if($newMessage != 0)
+                    <span class=message-icon>{{$newMessage}}</span>
+                @endif
+                </button>
             @endif
         </div>
         </form>
@@ -108,6 +133,13 @@
                 <a class="item-link" href="/mypage/chat/{{$transactionItem->id}}">
                 <div class="item-image">
                     <img class="img" src="{{ Storage::url($transactionItem->item->item_image) }}" alt="商品画像" width="150" height="150">
+                    @if($transactionItem->unread_count != 0)
+                    <div class="newmessage">
+                        <span class="new-icon">
+                            {{$transactionItem->unread_count}}
+                        </span>
+                    </div>
+                    @endif
                 </div>
 
                 <div class="item-name">

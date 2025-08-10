@@ -41,11 +41,12 @@ Route::middleware('verified')->group(function(){
     Route::post("/favorite", [ItemController::class, "favorite"]);
     Route::get('/transaction/success', [ItemController::class, 'success'])->name('transaction.success');
     Route::get('/transaction/cancel', [ItemController::class, 'cancel'])->name('purchase.cancel');
-    Route::post('/webhook/stripe', [StripeWebhookController::class, 'handle']);
+    // Route::post('/webhook/stripe', [StripeWebhookController::class, 'handle']);
     Route::get('/mypage/chat/{chat}', [ChatController::class, 'index']);
     Route::post('/chat/message', [ChatController::class, "message"]);
     Route::patch('/chat/message/edit', [ChatController::class, "edit"]);
     Route::delete('/chat/message/delete', [ChatController::class, "destroy"]);
+    Route::post('/chat/rating', [ChatController::class, "rating"]);
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

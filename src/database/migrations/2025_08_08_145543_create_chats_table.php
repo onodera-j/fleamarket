@@ -20,6 +20,7 @@ class CreateChatsTable extends Migration
             $table->foreignId('purchaser_id')->constrained('users')->cascadeOnDelete();
             $table->integer('seller_status')->default(0); //0:取引中 1:完了
             $table->integer('purchaser_status')->default(0); //0:取引中 1:完了
+            $table->integer('mail')->default(0); //0:取引中 1:完了
             $table->timestamps();
         });
     }

@@ -19,6 +19,8 @@ use App\Models\Address;
 use App\Models\Transaction;
 use App\Models\Favorite;
 use App\Models\Chat;
+use App\Models\Message;
+use App\Models\Rating;
 use Illuminate\Support\Str;
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
@@ -163,25 +165,45 @@ class ItemController extends Controller
     public function mypage(Request $request)
     {
         $user = Auth::user();
+        $myId = $user->id;
         $tab = $request->query("tab", "sell", "transaction");
 
         $buyItems = [];
         $sellItems = [];
         $transactionItems = [];
 
+        $transactionItems = Chat::where(function ($query) use ($myId) {
+                                    $query->where('seller_id', $myId)
+                                    ->where('seller_status', 0);
+                                })
+                                ->orWhere(function ($query) use ($myId) {
+                                    $query->where('purchaser_id', $myId)
+                                    ->where('purchaser_status', 0);
+                                })
+                                ->orderBy('updated_at', 'desc')
+                                ->get();
+        $totalUnread = 0;
+        foreach ($transactionItems as $chat) {
+            $unread = Message::where('chat_id', $chat->id)
+                                ->where('receiver_id', $myId)
+                                ->where('is_read', 0)
+                                ->count();
+            $chat->unread_count = $unread;
+            $totalUnread += $unread;
+        }
+        $newMessage = $totalUnread;
+
+        $averageRate = Rating::where('rated_id', $user->id)->avg('score');
+        $userRate = $averageRate !== null ? round($averageRate) : 0;
+
         if($tab === "buy"){
             $buyItems = Transaction::where("purchaser_id",$user->id)
             ->with("item")->get();
-        }elseif($tab === "transaction"){
-            $transactionItems = Chat::where("seller_id", $user->id)
-                                ->orWhere("purchaser_id", $user->id)
-                                ->orderBy('updated_at', 'desc')
-                                ->with("item")->get();
-        }else{
+        }elseif($tab === "sell"){
             $sellItems = Item::where("user_id", $user->id)->get();
         }
 
-        return view("mypage.mypage",compact("user","buyItems", "transactionItems", "sellItems", "tab"));
+        return view("mypage.mypage",compact("user","buyItems", "transactionItems", "newMessage", "sellItems", "tab", "userRate"));
     }
 
     public function item(Item $item)

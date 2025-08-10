@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\MessageRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TradeCompletedMail;
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Chat;
@@ -38,16 +40,25 @@ class ChatController extends Controller
                         ->orderBy('created_at', 'asc')->get();
 
         $tradingDatas = Chat::where(function ($query) use ($myId) {
-                            $query->where('seller_id', $myId)
-                            ->where('seller_status', 0);
-                            })
-                            ->orWhere(function ($query) use ($myId) {
-                            $query->where('purchaser_id', $myId)
-                            ->where('purchaser_status', 0);
-                            })
-                            ->where('id', '!=', $chat->id)
-                            ->orderBy('updated_at', 'desc')
-                            ->get();
+            $query->where(function ($q) use ($myId) {
+                $q->where('seller_id', $myId)
+                ->where('seller_status', 0);
+            })
+            ->orWhere(function ($q) use ($myId) {
+                $q->where('purchaser_id', $myId)
+                ->where('purchaser_status', 0);
+            });
+        })
+            ->where('id', '!=', $chat->id)
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+
+        Message::where('chat_id', $chat->id)
+                ->where('receiver_id', $user->id)
+                ->where('is_read', 0)
+                ->update(['is_read' => 1]);
+
 
         return view('mypage.chat', compact('user', 'otherUser', 'chat', 'itemData', 'chatDatas', 'tradingDatas'));
     }
@@ -106,5 +117,49 @@ class ChatController extends Controller
         $message->delete();
 
         return redirect()->back();
+    }
+
+    public function rating(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $user = Auth::user();
+            $ratingData = $request->all();
+            $chatId = $request->input('chat_id');
+            $chatData = Chat::find($chatId);
+
+            Rating::updateOrCreate(
+                [
+                    'chat_id' => $ratingData['chat_id'],
+                    'rater_id' => $ratingData['rater_id'],
+                ],
+                [
+                    'rated_id' => $ratingData['rated_id'],
+                    'score'    => $ratingData['score'],
+                ]
+            );
+
+            if ($chatData->purchaser_id === $user->id) {
+                $chatData->purchaser_status = 1;
+
+                if ($chatData->mail === 0) {
+                    $seller = $chatData->seller;
+                    Mail::to($seller->email)->send(new TradeCompletedMail($chatData));
+                    $chatData->mail = 1;
+                }
+                $chatData->save();
+
+            } else {
+                $chatData->seller_status = 1;
+                $chatData->save();
+            }
+
+            DB::commit();
+            return redirect('/');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::error("Error: " . $e->getMessage());
+            return back()->withErrors(["error", "評価の送信に失敗しました"]);
+        }
     }
 }
