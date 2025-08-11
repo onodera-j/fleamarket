@@ -41,6 +41,7 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=info@example.com
 MAIL_FROM_NAME="${APP_NAME}"
 
+STRIPE_KEYについては別途送信する
 ```
 
 
