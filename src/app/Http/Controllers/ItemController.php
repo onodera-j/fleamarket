@@ -272,7 +272,34 @@ class ItemController extends Controller
             Stripe::setApikey(config('services.stripe.secret'));
 
             $paymentMethod = (int) $transactionData['payment_method'];
-            $paymentType = $paymentMethod === 1 ? 'konbini' : 'card';
+
+            // コンビニ決済：Stripeに遷移しないーーここからーー
+            //  コンビニのStripe決済したいときはコメントアウト
+            if ($paymentMethod === 1) {
+
+
+                Transaction::create($transactionData);
+
+                $item->update(['soldout' => 1]);
+
+                Chat::create([
+                    'item_id' => $item->id,
+                    'seller_id' => $item->user_id,
+                    'purchaser_id' => $user->id,
+                ]);
+
+                DB::commit();
+                return redirect('/mypage/mypage?tab=buy')->with('success', 'コンビニ決済完了');
+            }
+
+            $paymentType = 'card';
+            // コンビニ決済：Stripeに遷移しないーーここまでーー
+
+            //  コンビニ決済のStripe実装はコメントアウト外すーーここからーー
+
+            // $paymentType = $paymentMethod === 1 ? 'konbini' : 'card';
+
+            //　コンビニ決済のStripe実装はコメントアウト外すーーここまでーー
 
             $checkoutSession = Session::create([
                 'payment_method_types' => [$paymentType],

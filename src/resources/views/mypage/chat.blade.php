@@ -74,14 +74,13 @@
                             <span class="font-bold">{{ $chatData->sender->name }}</span>
                         </div>
 
-
                         <div class="comment-content">
                             <div class="content-text" >
                                 {{ $chatData['content'] }}
                             </div>
                             @if ($chatData['image_path'])
                             <div class="content-image">
-                                <img id="image-preview" src="{{ Storage::url($chatData->image_path) }}" alt="画像"width="100" height="100">
+                                <img class="image-preview"  src="{{ Storage::url($chatData->image_path) }}" alt="画像" width="100" height="100" onclick='location.href="#img{{$chatData->id}}"'>
                             </div>
                             @endif
                         </div>
@@ -122,6 +121,13 @@
                                 </div>
                             </div>
                         @endif
+                    </div>
+                    {{-- 画像拡大モーダルウィンドウ --}}
+                    <div class="modal" id="img{{$chatData->id}}">
+                        <a href="#!" class="modal-overlay"></a>
+                        <div class="modal-expansion">
+                             <img class="image-preview"  src="{{ Storage::url($chatData->image_path) }}" alt="画像">
+                        </div>
                     </div>
 
                 @endforeach
@@ -207,6 +213,8 @@
             </div>
         </div>
     </div>
+
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
