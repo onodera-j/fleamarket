@@ -69,16 +69,17 @@
 
         <div class="flex-small">
             <div class="purchase-confirm">
-            <table class="confirm-table">
-                <tr>
-                    <td class="table-content table-title">商品代金</td>
-                    <td class="table-content">¥ {{ number_format($item["price"]) }}</td>
-                </tr>
-                <tr>
-                    <td class="table-content table-title">支払い方法</td>
-                    <td class="table-content" id="payment_method_display">コンビニ払い</td>
-                </tr>
-            </table>
+                <table class="confirm-table">
+                    <tr>
+                        <td class="table-content table-title">商品代金</td>
+                        <td class="table-content">¥ {{ number_format($item["price"]) }}</td>
+                    </tr>
+                    <tr>
+                        <td class="table-content table-title">支払い方法</td>
+                        <td class="table-content" id="payment_method_display">コンビニ払い</td>
+                    </tr>
+                </table>
+            </div>
             <div class="purchase-button">
                 <input type="hidden" name="item_id" value="{{$item["id"]}}">
                 <input type="hidden" name="post_code" value="{{$address["post_code"]}}">
@@ -90,6 +91,7 @@
         </div>
     </div>
     </form>
+</div>
 
     <script>
         document.getElementById('payment_method').addEventListener('change', function() {
@@ -108,6 +110,5 @@
         this.removeEventListener('change', arguments.callee);
         });
     </script>
-
 
 @endsection

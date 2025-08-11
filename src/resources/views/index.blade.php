@@ -31,56 +31,52 @@
             @endif
         </div>
         </form>
-
     </div>
 
     <div class="item-list">
-
         @switch($tab)
             @case("index")
             @foreach($Items as $Item)
-            <div class="item">
-                <a class="item-link" href="/item/{{$Item["id"]}}">
-                <div class="item-image">
-                    <img class="img" src="{{ Storage::url($Item->item_image) }}" alt="商品画像" width="150" height="150">
-                    @if($Item->soldout === 1)
-                        <div class="soldout">
-                            Sold
-                        </div>
-                    @endif
+                <div class="item">
+                    <a class="item-link" href="/item/{{$Item["id"]}}">
+                    <div class="item-image">
+                        <img class="img" src="{{ Storage::url($Item->item_image) }}" alt="商品画像" width="150" height="150">
+                        @if($Item->soldout === 1)
+                            <div class="soldout">
+                                Sold
+                            </div>
+                        @endif
+                    </div>
+                    <div class="item-name">
+                        <label class="label-name">{{$Item["item_name"]}}</label>
+                    </div>
+                    </a>
                 </div>
-                <div class="item-name">
-                    <label class="label-name">{{$Item["item_name"]}}</label>
-                </div>
-                </a>
-            </div>
             @endforeach
             @break
 
             @case("mylist")
             @foreach($mylistItems as $mylistItem)
-            <div class="item">
-                <a class="item-link" href="/item/{{$mylistItem->item_id}}">
-                <div class="item-image">
-                    <img class="img" src="{{ Storage::url($mylistItem->item->item_image) }}" alt="商品画像" width="150" height="150">
-                    @if($mylistItem->item->soldout === 1)
-                    <div class="soldout">
-                        Sold
+                <div class="item">
+                    <a class="item-link" href="/item/{{$mylistItem->item_id}}">
+                    <div class="item-image">
+                        <img class="img" src="{{ Storage::url($mylistItem->item->item_image) }}" alt="商品画像" width="150" height="150">
+                        @if($mylistItem->item->soldout === 1)
+                        <div class="soldout">
+                            Sold
+                        </div>
+                        @endif
                     </div>
-                    @endif
-                </div>
 
 
-                <div class="item-name">
-                    <label class="label-name">{{$mylistItem->item->item_name}}</label>
+                    <div class="item-name">
+                        <label class="label-name">{{$mylistItem->item->item_name}}</label>
+                    </div>
+                    </a>
                 </div>
-                </a>
-            </div>
             @endforeach
             @break
-            @endswitch
-
-        
+        @endswitch
     </div>
 </div>
 

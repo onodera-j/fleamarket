@@ -149,6 +149,7 @@
             </div>
             @endforeach
             @break
-            @endswitch
-
+        @endswitch
+    </div>
+</div>
 @endsection

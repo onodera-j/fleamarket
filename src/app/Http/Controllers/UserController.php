@@ -20,31 +20,26 @@ class UserController extends Controller
 {
     public function profile()
     {
-        $user = Auth::user(); // ログインユーザーを取得
+        $user = Auth::user();
         $address = Address::where('user_id', $user->id)->first();
         $profileImagePath = $user->profile_image;
 
-    // 画像が存在するか確認
+        // 画像が存在するか確認
         $profileImageUrl = null;
         if ($profileImagePath && Storage::disk('public')->exists($profileImagePath)) {
-        // 画像のURLを生成
-        $profileImageUrl = Storage::disk('public')->url($profileImagePath);
-    }
+            // 画像のURLを生成
+            $profileImageUrl = Storage::disk('public')->url($profileImagePath);
+        }
 
         return view('mypage.profile', compact('user','address','profileImageUrl'));
-         // プロフィール登録画面のビュー
-
-
-
     }
 
     public function store(AddressRequest $addressrequest , ProfileRequest $profilerequest)
     {
         DB::beginTransaction();
         try{
-            $user = Auth::user(); // ログインユーザーを取得
+            $user = Auth::user();
             Log::info("User ID: " . $user->id);
-            // ユーザー情報の更新
             $user->name = $profilerequest->input('name');
             if ($profilerequest->hasFile('profile_image')) {
                 $file = $profilerequest->file('profile_image');
@@ -53,27 +48,27 @@ class UserController extends Controller
                 $user->profile_image = 'profiles/' . $file_name; // データベースに保存するパス
             }
 
-        $user->save();
+            $user->save();
 
-        $address = Address::where('user_id', $user->id)->first();
-        $postcode = $addressrequest->input("post_code");
-        if(preg_match('/^[0-9]{7}$/', $postcode))
-        {
-            $postcode = substr($postcode ,0,3) . "-" . substr($postcode ,3);
-        }
-        $addressData = $addressrequest->only(["address","building"]);
-        $addressData["post_code"] = $postcode;
-        $addressData["user_id"] = $user->id;
+            $address = Address::where('user_id', $user->id)->first();
+            $postcode = $addressrequest->input("post_code");
+            if(preg_match('/^[0-9]{7}$/', $postcode))
+            {
+                $postcode = substr($postcode ,0,3) . "-" . substr($postcode ,3);
+            }
+            $addressData = $addressrequest->only(["address","building"]);
+            $addressData["post_code"] = $postcode;
+            $addressData["user_id"] = $user->id;
 
-        if($address) {
-            $address->update($addressData);
-        }else{
-            Address::create($addressData);
-        }
+            if($address) {
+                $address->update($addressData);
+            }else{
+                Address::create($addressData);
+            }
 
-        DB::commit();
+            DB::commit();
 
-        return redirect("/mypage/profile")->with("success", "プロフィールを更新しました");
+            return redirect("/mypage/profile")->with("success", "プロフィールを更新しました");
         }catch (\Exception $e) {
             DB::rollback();
             Log::error("Error: " . $e->getMessage());
@@ -110,8 +105,5 @@ class UserController extends Controller
 
         return redirect('/purchase/' . $item);
     }
-
-
-
 
 }

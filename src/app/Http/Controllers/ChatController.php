@@ -53,12 +53,10 @@ class ChatController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
 
-
         Message::where('chat_id', $chat->id)
                 ->where('receiver_id', $user->id)
                 ->where('is_read', 0)
                 ->update(['is_read' => 1]);
-
 
         return view('mypage.chat', compact('user', 'otherUser', 'chat', 'itemData', 'chatDatas', 'tradingDatas'));
     }
@@ -68,7 +66,6 @@ class ChatController extends Controller
         DB::beginTransaction();
         try {
             $messageData = $request->only('chat_id','sender_id','receiver_id', 'content');
-
 
             if ($request->hasFile('item_image')) {
                 $file = $request->file('item_image');

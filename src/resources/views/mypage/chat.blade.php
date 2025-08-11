@@ -167,11 +167,10 @@
                             src="{{ asset('storage/send.jpg') }}"></button>
                 </div>
             </div>
-
         </div>
     </form>
 
-    {{-- モーダルウィンドウ --}}
+    {{-- 評価モーダルウィンドウ --}}
     <div class="modal" id="rating">
         <a href="#!" class="modal-overlay"></a>
         <div class="modal__inner">
@@ -213,8 +212,6 @@
             </div>
         </div>
     </div>
-
-
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -271,6 +268,4 @@
         @endif
 
     </script>
-
-    </div>
 @endsection

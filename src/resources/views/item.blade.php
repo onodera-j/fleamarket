@@ -36,20 +36,26 @@
                         @csrf
                         <input type="hidden" name="item_id" value="{{$item["id"]}}">
                         <button class="favorite"><img class="logo" width="32px" height="32px" src="{{ asset("storage/star2.svg") }}"></button>
-                        <div class="count">{{$counts->count()}}</div>
+                        <div class="count">
+                            {{$counts->count()}}
+                        </div>
                     </form>
                     @else
                     <form method="post" action="/favorite">
                         @csrf
                         <input type="hidden" name="item_id" value="{{$item["id"]}}">
                         <button class="favorite"><img class="logo" width="32px" height="32px" src="{{ asset("storage/star1.svg") }}"></button>
-                        <div class="count">{{$counts->count()}}</div>
+                        <div class="count">
+                            {{$counts->count()}}
+                        </div>
                     </form>
                     @endif
                 </div>
                 <div class="icon-comment">
                     <img class="logo" width="32px" height="32px" src="{{ asset("storage/comment.svg") }}"></button>
-                    <div class="count">{{$comments->count()}}</div>
+                    <div class="count">
+                        {{$comments->count()}}
+                    </div>
                 </div>
             </div>
 
@@ -82,9 +88,9 @@
                     </div>
                     <div class="information-content">
                         @foreach($categories as $category)
-                        <div class="category">
-                            <span class="span-category">{{$category->category->content}}</span>
-                        </div>
+                            <div class="category">
+                                <span class="span-category">{{$category->category->content}}</span>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -138,33 +144,22 @@
             <form method="post" action="/comment">
                 @csrf
                 <div class="form-coment">
-                    <div class="comment-title">商品へのコメント</div>
-                    <div>
-                    <textarea class="textarea" name="comment" rows="10">{{old("comment")}}</textarea>
-                    @error('comment')
-                    <div>
-                    {{ $message }}
+                    <div class="comment-title">
+                        商品へのコメント
                     </div>
-                    @enderror
+                    <div>
+                        <textarea class="textarea" name="comment" rows="10">{{old("comment")}}</textarea>
+                        @error('comment')
+                            <div>
+                            {{ $message }}
+                            </div>
+                        @enderror
                     </div>
-
                     <input name="item_id" type="hidden" value="{{$item["id"]}}">
                     <button class="form-button">コメントを送信する</button>
                 </div>
             </form>
-
-
-
-
-
-
-
-
         </div>
-
     </div>
 </div>
-
-
-
 @endsection

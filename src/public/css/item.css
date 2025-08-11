@@ -171,12 +171,12 @@
 
 @media screen and (max-width: 900px){
 
-.information-group{
-    display: block;
-}
+    .information-group{
+        display: block;
+    }
 
-.information-title{
-    margin-bottom: 10px;
-}
+    .information-title{
+        margin-bottom: 10px;
+    }
 
 }

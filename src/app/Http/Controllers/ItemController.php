@@ -106,7 +106,7 @@ class ItemController extends Controller
 
     public function sell()
     {
-        $user = Auth::user(); // ログインユーザーを取得
+        $user = Auth::user();
         $categories = Category::all();
         return view("sell",compact("user","categories"));
     }
@@ -126,7 +126,7 @@ class ItemController extends Controller
 
         DB::beginTransaction();
         try{
-            $user = Auth::user(); // ログインユーザーを取得
+            $user = Auth::user();
             Log::info("User ID: " . $user->id);
 
             $itemData = $request->only(["condition","item_name","brand_name","item_detail",]);
@@ -139,19 +139,19 @@ class ItemController extends Controller
                 $file_name = Str::random(10) . '.' . $file->getClientOriginalExtension(); // ユニークなファイル名を生成
                 $path = $file->storeAs('items', $file_name, 'public'); // storage/app/public/itemsに保存
                 $itemData["item_image"] = 'items/' . $file_name; // データベースに保存するパス
-                }
+            }
 
-                $item = Item::create($itemData);
-                $categoryIds = $request->input("category_id",[]);
+            $item = Item::create($itemData);
+            $categoryIds = $request->input("category_id",[]);
 
-                foreach($categoryIds as $categoryId){
-                    CategoryItem::create([
-                        "item_id"=> $item->id,
-                        "category_id"=>$categoryId,
-                    ]);
-                }
+            foreach($categoryIds as $categoryId){
+                CategoryItem::create([
+                    "item_id"=> $item->id,
+                    "category_id"=>$categoryId,
+                ]);
+            }
 
-                DB::commit();
+            DB::commit();
 
             return redirect("/mypage/mypage")->with("success", "商品を出品しました");
         }catch (\Exception $e) {
@@ -159,7 +159,6 @@ class ItemController extends Controller
             Log::error("Error: " . $e->getMessage());
             return back()->withErrors(["error", "商品の出品に失敗しました"]);
         }
-
     }
 
     public function mypage(Request $request)
@@ -173,15 +172,15 @@ class ItemController extends Controller
         $transactionItems = [];
 
         $transactionItems = Chat::where(function ($query) use ($myId) {
-                                    $query->where('seller_id', $myId)
-                                    ->where('seller_status', 0);
-                                })
-                                ->orWhere(function ($query) use ($myId) {
-                                    $query->where('purchaser_id', $myId)
-                                    ->where('purchaser_status', 0);
-                                })
-                                ->orderBy('updated_at', 'desc')
-                                ->get();
+                                $query->where('seller_id', $myId)
+                                ->where('seller_status', 0);
+                            })
+                            ->orWhere(function ($query) use ($myId) {
+                                $query->where('purchaser_id', $myId)
+                                ->where('purchaser_status', 0);
+                            })
+                            ->orderBy('updated_at', 'desc')
+                            ->get();
         $totalUnread = 0;
         foreach ($transactionItems as $chat) {
             $unread = Message::where('chat_id', $chat->id)
@@ -296,6 +295,7 @@ class ItemController extends Controller
             $paymentType = 'card';
             // コンビニ決済：Stripeに遷移しないーーここまでーー
 
+
             //  コンビニ決済のStripe実装はコメントアウト外すーーここからーー
 
             // $paymentType = $paymentMethod === 1 ? 'konbini' : 'card';
@@ -321,12 +321,12 @@ class ItemController extends Controller
                     'user_id' => $user->id,
                     'item_id' => $item->id,
                     'payment_method' => $paymentMethod,
-                    ]
+                ]
             ]);
 
-                DB::commit();
+            DB::commit();
 
-                return redirect($checkoutSession->url);
+            return redirect($checkoutSession->url);
 
         }catch (\Exception $e) {
             DB::rollback();

@@ -6,7 +6,6 @@
 
 @section("content")
 
-
 <div class="content">
     <div class="content-title">
         <h2>住所の変更</h2>
@@ -58,10 +57,6 @@
                 }
             }
         </script>
-
-
     </div>
-
 </div>
-
-    @endsection
+@endsection
