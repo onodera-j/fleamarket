@@ -214,7 +214,8 @@ class ItemController extends Controller
                             ->where('user_id', $user->id)
                             ->first();
         }else{
-            $favorite = [];
+            $user = null;
+            $favorite = null;
         }
 
         $data = [

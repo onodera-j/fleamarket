@@ -56,7 +56,7 @@
             <div class="purchase">
                 @switch($item["soldout"])
                 @case(0)
-                    @if($item["user_id"] == $user["id"])
+                    @if($user && $item["user_id"] == $user["id"])
                     <button class="soldout-button">出品者は購入できません</button>
                     @else
                     <a href="/purchase/{{$item["id"]}}">

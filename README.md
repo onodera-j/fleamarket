@@ -23,7 +23,7 @@ mysql:
 1. `docker-compose exec php bash`
 2. `composer install`
 3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.envファイルを作成
-4. .envに以下の環境変数を追加
+4. .envに以下の環境変数を修正または追加
 ``` text
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -31,7 +31,18 @@ DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
+
+MAIL_MAILER=smtp
+MAIL_HOST=mail
+MAIL_PORT=1025
+MAIL_USERNAME=TESTmail
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=info@example.com
+MAIL_FROM_NAME="${APP_NAME}"
+
 ```
+
 
 5. アプリケーションキーの作成
 ``` bash
@@ -48,6 +59,27 @@ php artisan migrate
 php artisan db:seed
 ```
 
+以下のデータを作成します
+``` text
+アカウント
+名前：出品ユーザー1
+ID:test1@example.com
+PASS:12345678
+CO01-CO05までの商品を出品
+
+名前：出品ユーザー2
+ID:test1@example.com
+PASS:12345678
+CO06-CO10までの商品を出品
+
+名前：ダミーユーザー
+ID:test3@example.com
+PASS:12345678
+何も紐づけられていないユーザーデータ
+
+商品データ10件
+```
+
 ## Stripe決済の導入
 クレジット決済時にはダミーデータで決済処理が可能
 ``` text
@@ -56,6 +88,9 @@ php artisan db:seed
 有効期限: 未来の日付（例: 12/34）
 CVC: 任意の3桁（例: 123）
 ```
+コンビニ決済時は、Stripe決済完了できないため実装を外しています。
+コンビニ決済のStripe実装確認は
+ItemController line275-302あたりのコメントチェックアウト等で対応可。
 
 ## 使用技術(実行環境)
 - PHP8.3.0
