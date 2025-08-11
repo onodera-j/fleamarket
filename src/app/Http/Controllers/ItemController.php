@@ -224,7 +224,7 @@ class ItemController extends Controller
         $comments = Comment::where("item_id", $item->id)->get();
         $counts = Favorite::where('item_id', $item->id)->get();
 
-        return view("item", compact("categories", "item", "comments", "favorite", "counts"));
+        return view("item", compact("categories", "item", "comments", "favorite", "counts", "user"));
     }
 
     public function comment(CommentRequest $request)

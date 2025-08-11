@@ -41,7 +41,7 @@ class ItemsTableSeeder extends Seeder
         $image = $response->getBody()->getContents();
         $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
-            "user_id" => 2,
+            "user_id" => 1,
             "condition" => 2,
             "item_name" => "HDD",
             "brand_name" => "",
@@ -59,7 +59,7 @@ class ItemsTableSeeder extends Seeder
         $image = $response->getBody()->getContents();
         $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
-            "user_id" => 3,
+            "user_id" => 1,
             "condition" => 3,
             "item_name" => "玉ねぎ3束",
             "brand_name" => "",
@@ -77,7 +77,7 @@ class ItemsTableSeeder extends Seeder
         $image = $response->getBody()->getContents();
         $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
-            "user_id" => 4,
+            "user_id" => 1,
             "condition" => 4,
             "item_name" => "革靴",
             "brand_name" => "",
@@ -95,7 +95,7 @@ class ItemsTableSeeder extends Seeder
         $image = $response->getBody()->getContents();
         $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
-            "user_id" => 5,
+            "user_id" => 1,
             "condition" => 1,
             "item_name" => "ノートPC",
             "brand_name" => "",
@@ -113,7 +113,7 @@ class ItemsTableSeeder extends Seeder
         $image = $response->getBody()->getContents();
         $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
-            "user_id" => 1,
+            "user_id" => 2,
             "condition" => 2,
             "item_name" => "マイク",
             "brand_name" => "",
@@ -149,7 +149,7 @@ class ItemsTableSeeder extends Seeder
         $image = $response->getBody()->getContents();
         $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
-            "user_id" => 3,
+            "user_id" => 2,
             "condition" => 4,
             "item_name" => "タンブラー",
             "brand_name" => "",
@@ -167,7 +167,7 @@ class ItemsTableSeeder extends Seeder
         $image = $response->getBody()->getContents();
         $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
-            "user_id" => 4,
+            "user_id" => 2,
             "condition" => 1,
             "item_name" => "コーヒーミル",
             "brand_name" => "",
@@ -185,7 +185,7 @@ class ItemsTableSeeder extends Seeder
         $image = $response->getBody()->getContents();
         $path = Storage::put('public/seeditems/' . $filename, $image);
         $param = [
-            "user_id" => 5,
+            "user_id" => 2,
             "condition" => 2,
             "item_name" => "メイクセット",
             "brand_name" => "",

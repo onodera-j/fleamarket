@@ -33,7 +33,7 @@
                     @endif
                     {{ $otherUser->name }}さんとの取引画面
                 </div>
-                @if($chat->purchaser_id === $user->id)
+                @if($chat->purchaser_id == $user->id || $chat->purchaser_status == 1)
                     <div class="trading-close">
                         <button class="button-rating" onclick='location.href="#rating"'>
                             取引を完了する
