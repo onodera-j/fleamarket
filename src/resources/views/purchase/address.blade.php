@@ -22,21 +22,21 @@
                 <label class="form-label" for="post_code">郵便番号</label>
                 <input class="form-text" id="post_code" name="post_code" type="text" value="@if(isset($address["post_code"])){{$address["post_code"]}}@endif">
                 @error('post_code')
-                {{ $message }}
+                    <span class="error-color">{{ $message }}</span>
                 @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="address">住所</label>
                 <input class="form-text" id="address" name="address" type="text" value="@if(isset($address["address"])){{$address["address"]}}@endif">
                 @error('address')
-                {{ $message }}
+                    <span class="error-color">{{ $message }}</span>
                 @enderror
             </div>
             <div class="form-group">
                 <label class="form-label" for="building">建物名</label>
                 <input class="form-text" id="building" name="building" type="text" value="@if(isset($address["building"])){{$address["building"]}}@endif">
                 @error('building')
-                {{ $message }}
+                    <span class="error-color">{{ $message }}</span>
                 @enderror
             </div>
 

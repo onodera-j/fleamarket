@@ -151,7 +151,7 @@
                         <textarea class="textarea" name="comment" rows="10">{{old("comment")}}</textarea>
                         @error('comment')
                             <div>
-                            {{ $message }}
+                                <span class="error-color">{{ $message }}</span>
                             </div>
                         @enderror
                     </div>

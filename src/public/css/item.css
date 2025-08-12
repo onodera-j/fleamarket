@@ -169,6 +169,10 @@
     padding:10px;
 }
 
+.error-color {
+    color: #f00;
+}
+
 @media screen and (max-width: 900px){
 
     .information-group{

@@ -28,7 +28,7 @@
                     </label>
                 </div>
                 @error('item_image')
-                    {{ $message }}
+                    <span class="error-color">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label class="form-label">カテゴリー</label>
                     @error('category_id')
-                    {{ $message }} <br>
+                        <span class="error-color">{{ $message }}</span><br>
                     @enderror
                     @foreach ($categories as $category)
                     <label class=label-category><input class=input-category type="checkbox" value="{{$category->id}}" name="category_id[]" {{ in_array($category->id, old('category_id', [])) ? "checked" : "" }}><span class=span-category>{{$category->content}}</span></label>
@@ -55,7 +55,7 @@
                         <option value=4  {{ old("condition") == "4" ? "selected" : "" }}>状態が悪い</option>
                     </select>
                     @error('condition')
-                    {{ $message }}
+                        <span class="error-color">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="detail-title">
@@ -65,28 +65,28 @@
                     <label class="form-label" for="name">商品名</label>
                     <input class="form-text" id="name" name="item_name" type="text" value="{{old("item_name")}}">
                     @error('item_name')
-                    {{ $message }}
+                        <span class="error-color">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="brand">ブランド名</label>
                     <input class="form-text" id="brand" name="brand_name" type="text" value="{{old("brand_name")}}">
                     @error('brand_name')
-                    {{ $message }}
+                        <span class="error-color">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="detail">商品の説明</label>
                     <textarea class="form-textarea" id="detail" name="item_detail" rows="4" cols="30">{{old("item_detail")}}</textarea>
                     @error('item_detail')
-                    {{ $message }}
+                        <span class="error-color">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="price">販売価格</label>
                     <input class="form-text" id="price" name="price" type="text" value="{{old("price")}}">
                     @error('price')
-                    {{ $message }}
+                        <span class="error-color">{{ $message }}</span>
                     @enderror
                 </div>
 

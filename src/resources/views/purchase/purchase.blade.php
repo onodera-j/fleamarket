@@ -36,7 +36,7 @@
                             <option value=2>カード支払い</option>
                         </select>
                         @error('payment_method')
-                            {{ $message }}
+                            <span class="error-color">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
